@@ -1,8 +1,5 @@
 ﻿
 /*
-3. *Для двух строк написать метод, определяющий, является ли одна строка перестановкой другой.
-
-Например: badc являются перестановкой abcd.
 4. *Задача ЕГЭ.
 
 На вход программе подаются сведения о сдаче экзаменов учениками 9-х классов некоторой средней школы. В первой строке сообщается количество учеников N, которое не меньше 10, но не превосходит 100, каждая из следующих N строк имеет следующий формат:
@@ -54,7 +51,7 @@ namespace dz5
                 Console.Title = ("Меню");
                 Console.Clear();
                 HelpCS.MyHeader(text: "Главное меню.");
-                Console.WriteLine("Введите номер задачи от 1 до 5. принимаются только целые числа.");
+                Console.WriteLine("Введите номер задачи от 1 до 4. принимаются только целые числа.");
                 value = Checktoparse(""); // даем значение велью методом GetValue // и там метод уже либо пропустит int32 либо будет бесконечно вызыватся, пока ты не напишиш цифры удовлетворяющие условия
                 // гет валью дает нам проверку на вводимы знаки, а диапазон мы сдесь даже не ставили У НАС ВСЕГО 3 КЕЙСА
 
@@ -69,6 +66,9 @@ namespace dz5
                         break;
                     case 3:
                         dz3();
+                        break;
+                    case 4:
+                        dz4();
                         break;
 
                 }
@@ -190,14 +190,57 @@ namespace dz5
             ///////////////////////////////////////////////////////////////////////////////////
             HelpCS.MyFooter();
         }
-    }
-
-    #endregion
 
 
+        #endregion
+        #region задание 4
+        static void dz4()
+        {
+            Console.Clear();
+            HelpCS.MyHeader(text: "Задача 4. Задача ЕГЭ.");
+            ///////////////////////////////////////////////////////////////////////////////////
+            Students students;
+            try
+            {
+                students = new Students(@"..\..\data1.txt"); //получение данных из файла Пример входной строки:                /// Иванов Петр 4 5 3
+            }
+            catch (Exception exc)
+            {
+
+                HelpCS.MyPause("Ошибка! Не удалось получить данные из файла." + exc.Message);
+                return;
+            }
+            Console.WriteLine("Все ученики со средними оценками:");
+            for (int i = 0; i < students.Length; i++)
+            {
+                Console.Write($"{students[i],-30}");
+            }
+            HelpCS.MyPause();
+            ///////////////////////////////////////////////////////////////////////////////////
+            Console.WriteLine("Лига солнцеликих:");
+            foreach (string s in students.GetDummersStudents())
+            {
+                Console.Write($"{s,-30}");
+            }
+            Console.WriteLine();
+            Console.SetCursorPosition(10, 19);
+            Console.WriteLine("THE FORCE BE WITH U...");
+            foreach (string s in students.GetBestStudents())
+            {
+                Console.Write($"{s,-30}");
+            }
+            //Students.MakeSampleFile();
+            ///////////////////////////////////////////////////////////////////////////////////
+            HelpCS.MyFooter();
+            Console.ReadKey();
+
+        }
+        #endregion
 
 
-}
+
+
+    } }
 
 
 
